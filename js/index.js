@@ -100,7 +100,7 @@ function initLight() {
     var textureFlare1 = textureLoader.load('res/effects/halo.png');
 
     var lensflare = new THREE.Lensflare();
-    lensflare.addElement(new THREE.LensflareElement(textureFlare0, 700, 0, sunLight.color));
+    lensflare.addElement(new THREE.LensflareElement(textureFlare0, 500, 0, sunLight.color));
     lensflare.addElement(new THREE.LensflareElement(textureFlare1, 100, 0.6));
     lensflare.addElement(new THREE.LensflareElement(textureFlare1, 30, 0.7));
     lensflare.addElement(new THREE.LensflareElement(textureFlare1, 240, 0.9));
