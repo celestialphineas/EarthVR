@@ -43,7 +43,8 @@ $(document).ready(function () {
     document.body.appendChild(renderer.domElement);
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
-    camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 20000);
+    camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
+    camera.position.set(0, 0, 20);
     // Apply VR stereo rendering to renderer
     effect.setSize(window.innerWidth, window.innerHeight);
     // Initialize WebVR UI
@@ -52,6 +53,8 @@ $(document).ready(function () {
     initSkybox();
     // Add light
     initLight();
+    // Add objects
+    initSceneObjects();
 });
 
 // Window resize call back
@@ -88,7 +91,7 @@ function initSkybox() {
 function initLight() {
     // Add light
     sunLight = new THREE.PointLight(0xFFFFFF, 1.0);
-    sunLight.position.set(0, 0, 0);
+    sunLight.position.set(0, 0, 100);
     scene.add(sunLight);
 }
 
@@ -108,7 +111,11 @@ function initWebVR() {
         // displays, thus provide the controls for a monoscopic view
         else {
             controls = new THREE.OrbitControls(camera);
-            controls.target.set(0, 0, -1);
+            controls.minDistance = 15;
+            controls.maxDistance = 100;
+            controls.target.set(0, 0, 0);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
             requestAnimationFrame(animate);
         }
     });
@@ -119,7 +126,7 @@ function initWebVR() {
     });
     vrButton.on('exit', function() {
         camera.quaternion.set(0, 0, 0, 1);
-        camera.position.set(0, controls.userHeight, 0);
+        camera.position.set(0, 0, 0);
     });
     vrButton.on('hide', function() {
         $('#ui').css('display', 'none');
@@ -146,4 +153,47 @@ function animate(timestamp) {
     } else {
         requestAnimationFrame(animate);
     }
+}
+
+function initSceneObjects() {
+    var radius = 6.3781;
+    var objectGroup         = new THREE.Group();
+    var bodySphereGeometry  = new THREE.SphereGeometry(radius, 64, 64);
+    var bodySphereMaterial  = new THREE.MeshPhongMaterial({
+        color:      new THREE.Color(0xffffff),
+        specular:   new THREE.Color(0x243232),
+        shininess:  25,
+        bumpScale:  0.05,
+    });
+    bodySphereMaterial.map          = textureLoader.load('res/earth/diffuse.jpg');
+    bodySphereMaterial.specularMap  = textureLoader.load('res/earth/spec.jpg');
+    bodySphereMaterial.bumpMap      = textureLoader.load('res/earth/bump.jpg');
+    objectGroup.add(new THREE.Mesh(bodySphereGeometry, bodySphereMaterial));
+    var atmosphereGeometry = new THREE.SphereGeometry(radius + 0.02, 64, 64);
+    var atmosphereMaterial = new THREE.ShaderMaterial({
+        uniforms: THREE.UniformsUtils.merge([
+            THREE.UniformsLib.lights,
+            {
+                atmosphereColor:    {value: new THREE.Vector3(0.5, 0.7, 0.8)},
+                sunsetColor:        {value: new THREE.Vector3(0.8, 0.7, 0.6)},
+                atmosphereStrength: {value: 1.5},
+                sunsetStrength:     {value: 1.0}
+            }
+        ]),
+        vertexShader:   atmosphereVS,
+        fragmentShader: atmosphereFS,
+        transparent:    true,
+        blending:       THREE.CustomBlending,
+        blendEquation:  THREE.AddEquation,
+        lights:         true
+    });
+    objectGroup.add(new THREE.Mesh(atmosphereGeometry, atmosphereMaterial));
+    var cloudGeometry = new THREE.SphereGeometry(radius + 0.03, 64, 64);
+    var cloudMaterial = new THREE.MeshLambertMaterial({
+        transparent:    true
+    });
+    cloudMaterial.map = textureLoader.load('res/earth/clouds.png');
+    objectGroup.add(new THREE.Mesh(cloudGeometry, cloudMaterial));
+    objectGroup.position.set(0, 0, 0);
+    scene.add(objectGroup);
 }
