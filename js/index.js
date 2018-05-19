@@ -30,8 +30,6 @@ var textureLoader   = new THREE.TextureLoader();
 var camera;
 // The pose camera, stores the relative position
 var poseCamera = new THREE.Object3D();
-// Base position
-var basePosition = {x: 0, y: 0, z: 20};
 // Three.js control object, initialized in ready
 var controls;
 // Rendering enter/exit UI
@@ -150,16 +148,18 @@ function animate(timestamp) {
     lastRender = timestamp;
     // Update VR headset position and apply to camera.
     controls.update();
-    // Render the scene.
-    effect.render(scene, camera);
     if (vrDisplay) {
         var orbitPosition = camera.position.clone();
         var rotatedPosition = poseCamera.position.applyQuaternion(camera.quaternion);
         camera.position.add(rotatedPosition);
         camera.quaternion.multiply(poseCamera.quaternion);
         vrDisplay.requestAnimationFrame(animate);
+        // Render the scene.
+        effect.render(scene, camera);
+        camera.position.copy(orbitPosition);
     } else {
         requestAnimationFrame(animate);
+        effect.render(scene, camera);
     }
 }
 
