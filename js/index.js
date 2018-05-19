@@ -46,7 +46,7 @@ $(document).ready(function () {
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
     camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
-    camera.position.set(0, 0, 16);
+    camera.position.set(16, 0, 0);
     // Apply VR stereo rendering to renderer
     effect.setSize(window.innerWidth, window.innerHeight);
     // Initialize WebVR UI
@@ -93,7 +93,19 @@ function initSkybox() {
 function initLight() {
     // Add light
     sunLight = new THREE.PointLight(0xFFFFFF, 1.0);
-    sunLight.position.set(0, 0, 100);
+    sunLight.position.set(100, 0, 0);
+    var textureLoader = new THREE.TextureLoader();
+
+    var textureFlare0 = textureLoader.load('res/effects/flare.jpg');
+    var textureFlare1 = textureLoader.load('res/effects/halo.png');
+
+    var lensflare = new THREE.Lensflare();
+    lensflare.addElement(new THREE.LensflareElement(textureFlare0, 700, 0, sunLight.color));
+    lensflare.addElement(new THREE.LensflareElement(textureFlare1, 100, 0.6));
+    lensflare.addElement(new THREE.LensflareElement(textureFlare1, 30, 0.7));
+    lensflare.addElement(new THREE.LensflareElement(textureFlare1, 240, 0.9));
+    lensflare.addElement(new THREE.LensflareElement(textureFlare1, 70, 1));
+    sunLight.add(lensflare);
     scene.add(sunLight);
 }
 
@@ -128,7 +140,7 @@ function initWebVR() {
     });
     vrButton.on('exit', function() {
         camera.quaternion.set(0, 0, 0, 1);
-        camera.position.set(0, 0, 16);
+        camera.position.set(16, 0, 0);
     });
     vrButton.on('hide', function() {
         $('#ui').css('display', 'none');
