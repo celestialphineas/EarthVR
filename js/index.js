@@ -150,13 +150,15 @@ function animate(timestamp) {
         vrDisplay.requestAnimationFrame(animate);
         // Update VR headset position and apply to camera.
         controls.update();
-        var orbitPosition = camera.position.clone();
+        var cameraPosition  = camera.position.clone();
+        var cameraQuaterion = camera.quaternion.clone();
         var rotatedPosition = poseCamera.position.applyQuaternion(camera.quaternion);
         camera.position.add(rotatedPosition);
         camera.quaternion.multiply(poseCamera.quaternion);
         // Render the scene.
         effect.render(scene, camera);
-        camera.position.copy(orbitPosition);
+        camera.position.copy(cameraPosition);
+        camera.quaternion.copy(cameraQuaterion);
     } else {
         requestAnimationFrame(animate);
         // Update VR headset position and apply to camera.
