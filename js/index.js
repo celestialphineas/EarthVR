@@ -29,7 +29,7 @@ var textureLoader   = new THREE.TextureLoader();
 // Three.js camera object, initialized in ready
 var camera;
 // The pose camera, stores the relative position
-var poseCamera;
+var poseCamera = new THREE.Object3D();
 // Base position
 var basePosition = {x: 0, y: 0, z: 20};
 // Three.js control object, initialized in ready
@@ -48,9 +48,7 @@ $(document).ready(function () {
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
     camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
-    poseCamera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
     camera.position.set(0, 0, 20);
-    poseCamera.position.set(0, 0, 0);
     // Apply VR stereo rendering to renderer
     effect.setSize(window.innerWidth, window.innerHeight);
     // Initialize WebVR UI
@@ -155,11 +153,10 @@ function animate(timestamp) {
     // Render the scene.
     effect.render(scene, camera);
     if (vrDisplay) {
-        camera.position.set(
-            basePosition.x + poseCamera.position.x,
-            basePosition.y + poseCamera.position.y,
-            basePosition.z + poseCamera.position.z
-        );
+        var orbitPosition = camera.position.clone();
+        var rotatedPosition = poseCamera.position.applyQuaternion(camera.quaternion);
+        camera.position.add(rotatedPosition);
+        camera.quaternion.multiply(poseCamera.quaternion);
         vrDisplay.requestAnimationFrame(animate);
     } else {
         requestAnimationFrame(animate);
@@ -199,7 +196,7 @@ function initSceneObjects() {
         lights:         true
     });
     objectGroup.add(new THREE.Mesh(atmosphereGeometry, atmosphereMaterial));
-    var cloudGeometry = new THREE.SphereGeometry(radius + 0.03, 64, 64);
+    var cloudGeometry = new THREE.SphereGeometry(radius + 0.04, 64, 64);
     var cloudMaterial = new THREE.MeshLambertMaterial({
         transparent:    true
     });
