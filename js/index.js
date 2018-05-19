@@ -28,6 +28,10 @@ var scene           = new THREE.Scene();
 var textureLoader   = new THREE.TextureLoader();
 // Three.js camera object, initialized in ready
 var camera;
+// The pose camera, stores the relative position
+var poseCamera;
+// Base position
+var basePosition = {x: 0, y: 0, z: 20};
 // Three.js control object, initialized in ready
 var controls;
 // Rendering enter/exit UI
@@ -44,7 +48,9 @@ $(document).ready(function () {
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
     camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
+    poseCamera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
     camera.position.set(0, 0, 20);
+    poseCamera.position.set(0, 0, 0);
     // Apply VR stereo rendering to renderer
     effect.setSize(window.innerWidth, window.innerHeight);
     // Initialize WebVR UI
@@ -102,7 +108,7 @@ function initWebVR() {
         if(vrDisplays.length) {
             vrDisplay = vrDisplays[0];
             // Apply VR headset positional data to camera
-            controls = new THREE.VRControls(camera);
+            controls = new THREE.VRControls(poseCamera);
             controls.standing = true;
             // Kick off the render loop
             vrDisplay.requestAnimationFrame(animate);
@@ -149,6 +155,11 @@ function animate(timestamp) {
     // Render the scene.
     effect.render(scene, camera);
     if (vrDisplay) {
+        camera.position.set(
+            basePosition.x + poseCamera.position.x,
+            basePosition.y + poseCamera.position.y,
+            basePosition.z + poseCamera.position.z
+        );
         vrDisplay.requestAnimationFrame(animate);
     } else {
         requestAnimationFrame(animate);
