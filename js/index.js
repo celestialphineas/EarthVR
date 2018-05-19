@@ -46,7 +46,7 @@ $(document).ready(function () {
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
     camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
-    camera.position.set(0, 0, 20);
+    camera.position.set(0, 0, 16);
     // Apply VR stereo rendering to renderer
     effect.setSize(window.innerWidth, window.innerHeight);
     // Initialize WebVR UI
@@ -128,7 +128,7 @@ function initWebVR() {
     });
     vrButton.on('exit', function() {
         camera.quaternion.set(0, 0, 0, 1);
-        camera.position.set(0, 0, 0);
+        camera.position.set(0, 0, 16);
     });
     vrButton.on('hide', function() {
         $('#ui').css('display', 'none');
