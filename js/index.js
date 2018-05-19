@@ -146,19 +146,21 @@ var lastRender = 0;
 function animate(timestamp) {
     var delta = Math.min(timestamp - lastRender, 500);
     lastRender = timestamp;
-    // Update VR headset position and apply to camera.
-    controls.update();
     if (vrDisplay) {
+        vrDisplay.requestAnimationFrame(animate);
+        // Update VR headset position and apply to camera.
+        controls.update();
         var orbitPosition = camera.position.clone();
         var rotatedPosition = poseCamera.position.applyQuaternion(camera.quaternion);
         camera.position.add(rotatedPosition);
         camera.quaternion.multiply(poseCamera.quaternion);
-        vrDisplay.requestAnimationFrame(animate);
         // Render the scene.
         effect.render(scene, camera);
         camera.position.copy(orbitPosition);
     } else {
         requestAnimationFrame(animate);
+        // Update VR headset position and apply to camera.
+        controls.update();
         effect.render(scene, camera);
     }
 }
