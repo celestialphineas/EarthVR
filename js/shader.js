@@ -1,6 +1,7 @@
 var generalVS = `
 varying vec2 vUv;
 varying vec3 vNormal;
+varying vec3 sunDirection;
 
 void main() {
     vUv = uv;
@@ -24,9 +25,9 @@ struct PointLight {
 uniform PointLight pointLights[NUM_POINT_LIGHTS];
 
 void main( void ) {
+    vec3 sunDirection = normalize(pointLights[0].position);
     vec4 nightColor = vec4(texture2D( nightTexture, vUv ).rgb, 1.0);
     vec4 dayColor = vec4(0, 0, 0, 0);
-    vec3 sunDirection = pointLights[0].position;
 
     // compute cosine sun to normal so -1 is away from sun and +1 is toward sun.
     float cosineAngleSunToNormal = dot(normalize(vNormal), sunDirection);
@@ -38,12 +39,9 @@ void main( void ) {
     float mixAmount = cosineAngleSunToNormal * 0.5 + 0.5;
 
     // Select day or night texture based on mixAmount.
-    vec4 color = mix( nightColor, dayColor, mixAmount );
+    vec4 color = mix( dayColor, nightColor, mixAmount );
 
-    gl_FragColor += vec4(color);
-
-    // comment in the next line to see the mixAmount
-    //gl_FragColor = vec4( mixAmount, mixAmount, mixAmount, 1.0 );
+    gl_FragColor += vec4(nightColor);
 }
 `;
 

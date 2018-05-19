@@ -193,6 +193,22 @@ function initSceneObjects() {
     bodySphereMaterial.specularMap  = textureLoader.load('res/earth/spec.jpg');
     bodySphereMaterial.bumpMap      = textureLoader.load('res/earth/bump.jpg');
     objectGroup.add(new THREE.Mesh(bodySphereGeometry, bodySphereMaterial));
+    // Night
+    // var nightSphereMaterial = new THREE.ShaderMaterial({
+    //     uniforms: THREE.UniformsUtils.merge([
+    //         THREE.UniformsLib.lights,
+    //         {
+    //             nightTexture: { value: textureLoader.load('res/earth/night.png') }
+    //         }
+    //     ]),
+    //     vertexShader: generalVS,
+    //     fragmentShader: nightFS,
+    //     transparent: true,
+    //     blending: THREE.CustomBlending,
+    //     blendEquation: THREE.AddEquation,
+    //     lights: true
+    // });
+    // objectGroup.add(new THREE.Mesh(bodySphereGeometry, nightSphereMaterial));
     var atmosphereGeometry = new THREE.SphereGeometry(radius + 0.02, 64, 64);
     var atmosphereMaterial = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge([
