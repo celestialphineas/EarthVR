@@ -46,7 +46,9 @@ function animate(timestamp) {
     updateTime(delta);
     updateEarthRotation();
     updateSunLocation();
-    cameraTransform.update();
+    if(vrDisplay) {
+        cameraTransform.update();
+    }
     if (vrDisplay) {
         vrDisplay.requestAnimationFrame(animate);
         // Update VR headset position and apply to camera.
