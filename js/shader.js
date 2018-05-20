@@ -2,11 +2,14 @@ var generalVS = `
 varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 sunDirection;
+uniform vec3 sunPosition;
 
 void main() {
     vUv = uv;
     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
     vNormal = normalMatrix * normal;
+    sunDirection = (modelViewMatrix * vec4(position, 1.)
+        - modelViewMatrix * vec4(sunPosition, 1.)).xyz;
     gl_Position = projectionMatrix * mvPosition;
 }
 `;
@@ -16,16 +19,9 @@ uniform sampler2D nightTexture;
 
 varying vec2 vUv;
 varying vec3 vNormal;
-
-struct PointLight {
-    vec3 position;
-    float distance;
-    vec3 color;
-};
-uniform PointLight pointLights[NUM_POINT_LIGHTS];
+varying vec3 sunDirection;
 
 void main( void ) {
-    vec3 sunDirection = normalize(pointLights[0].position);
     vec4 nightColor = vec4(texture2D( nightTexture, vUv ).rgb, 1.0);
     vec4 dayColor = vec4(0, 0, 0, 0);
 
@@ -33,15 +29,15 @@ void main( void ) {
     float cosineAngleSunToNormal = dot(normalize(vNormal), sunDirection);
 
     // sharpen the edge beween the transition
-    cosineAngleSunToNormal = clamp( cosineAngleSunToNormal / 100.0, -1.0, 1.0);
+    cosineAngleSunToNormal = clamp(cosineAngleSunToNormal/100., -1.0, 1.0);
 
     // convert to 0 to 1 for mixing
-    float mixAmount = cosineAngleSunToNormal * 0.5 + 0.5;
+    float mixAmount = cosineAngleSunToNormal * 0.6 + 0.5;
 
     // Select day or night texture based on mixAmount.
-    vec4 color = mix( dayColor, nightColor, mixAmount );
+    vec4 color = mix( dayColor, nightColor, mixAmount);
 
-    gl_FragColor += vec4(nightColor);
+    gl_FragColor = color;
 }
 `;
 
