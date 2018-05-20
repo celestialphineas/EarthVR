@@ -46,6 +46,7 @@ function animate(timestamp) {
     updateTime(delta);
     updateEarthRotation();
     updateSunLocation();
+    // cameraTransform.update();
     if (vrDisplay) {
         vrDisplay.requestAnimationFrame(animate);
         // Update VR headset position and apply to camera.
@@ -91,7 +92,7 @@ function initSceneObjects() {
         vertexShader: generalVS,
         fragmentShader: nightFS,
         transparent: true,
-        blending: THREE.CustomBlending,
+        // blending: THREE.CustomBlending,
         blendEquation: THREE.AddEquation
     });
     earthObject.add(new THREE.Mesh(nightSphereGeometry, nightSphereMaterial));
@@ -115,7 +116,7 @@ function initSceneObjects() {
         vertexShader:   atmosphereVS,
         fragmentShader: atmosphereFS,
         transparent:    true,
-        blending:       THREE.CustomBlending,
+        // blending:       THREE.CustomBlending,
         blendEquation:  THREE.AddEquation,
         lights:         true
     });

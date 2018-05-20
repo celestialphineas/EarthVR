@@ -34,7 +34,7 @@ void main( void ) {
     float mixAmount = cosineAngleSunToNormal * 0.6 + 0.5;
 
     // Select day or night texture based on mixAmount.
-    vec4 color = mix( dayColor, nightColor, mixAmount);
+    vec4 color = mix(dayColor, nightColor, mixAmount);
 
     gl_FragColor = color;
 }
