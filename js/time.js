@@ -23,3 +23,15 @@ function nowInDay() {
         + currentTime.getUTCSeconds()/3600)/24;
     return dif;
 }
+
+function fasterTime() {
+    if(timeScale < 1000000) {
+        timeScale *= 10;
+    }
+}
+
+function slowerTime() {
+    if(timeScale > 0.1) {
+        timeScale /= 10;
+    }
+}

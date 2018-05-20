@@ -20,16 +20,28 @@ var cameraTransform = new (function (){
         }
     };
     this.increasePhi = function() {
-        var offset = 0.02;
+        var offset = 0.01;
         if(this.cameraPhi < Math.PI/2 - offset) {
             this.cameraPhi += offset;
         }
     };
     this.decreasePhi = function() {
-        var offset = 0.02;
+        var offset = 0.01;
         if(this.cameraPhi > -Math.PI/2 + offset) {
             this.cameraPhi -= offset;
         }
+    };
+    this.increaseTheta = function() {
+        var offset = 0.01;
+        this.cameraTheta += offset;
+        if(this.cameraTheta > 2*Math.PI)    this.cameraTheta -= 2*Math.PI;
+        if(this.cameraTheta < 0)            this.cameraTheta += 2*Math.PI;
+    };
+    this.decreaseTheta = function() {
+        var offset = 0.01;
+        this.cameraTheta -= offset;
+        if(this.cameraTheta > 2*Math.PI)    this.cameraTheta -= 2*Math.PI;
+        if(this.cameraTheta < 0)            this.cameraTheta += 2*Math.PI;
     };
     this.update = function() {
         camera.position.set(
@@ -51,8 +63,8 @@ function updateEarthRotation() {
 function updateSunLocation() {
     var a = nowInYear();
     sunLight.position.set(
-        1000 * Math.cos((a-0.22) * 2 * Math.PI),
+        200 * Math.cos((a-0.22) * 2 * Math.PI),
         0,
-        1000 * Math.sin((0.22 - a) * 2 * Math.PI)
+        200 * Math.sin((0.22 - a) * 2 * Math.PI)
     );
 }
