@@ -6,11 +6,10 @@ uniform vec3 sunPosition;
 
 void main() {
     vUv = uv;
-    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
     vNormal = normalMatrix * normal;
     sunDirection = (modelViewMatrix * vec4(position, 1.)
-        - modelViewMatrix * vec4(sunPosition, 1.)).xyz;
-    gl_Position = projectionMatrix * mvPosition;
+        - viewMatrix * vec4(sunPosition, 1.)).xyz;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 `;
 
@@ -98,7 +97,7 @@ const float PI = 3.14159265358979;
 
 void main(void) {
     vec3 cameraDir = normalize(cameraPosition - (modelMatrix * vec4(0., 0., 0., 1.)).xyz);
-    vec3 lightDir = normalize((inverse(modelViewMatrix) * vec4(pointLights[0].position, 1.)).xyz);
+    vec3 lightDir = normalize((inverse(viewMatrix) * vec4(pointLights[0].position, 1.)).xyz);
     vec3 normalVec = (modelMatrix * vec4(normal, 0.)).xyz;
     vec3 halfNormalVec = normalize(normalVec + cameraDir);
 

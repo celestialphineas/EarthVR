@@ -16,14 +16,13 @@ function initSkybox() {
     }
     var skyboxGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
     var skybox = new THREE.Mesh(skyboxGeometry, materialArray);
-    skybox.rotateX(Math.PI/2);
+    skybox.rotateZ(3*Math.PI/2-0.5);
     scene.add(skybox);
 }
 
 function initLight() {
     // Add light
     sunLight = new THREE.PointLight(0xFFFFFF, 1.0);
-    sunLight.position.set(100, 0, 0);
     var textureLoader = new THREE.TextureLoader();
 
     var textureFlare0 = textureLoader.load('res/effects/flare.jpg');
@@ -43,6 +42,10 @@ var lastRender = 0;
 function animate(timestamp) {
     var delta = Math.min(timestamp - lastRender, 500);
     lastRender = timestamp;
+    // See time.js for definition
+    updateTime(delta);
+    updateEarthRotation();
+    updateSunLocation();
     if (vrDisplay) {
         vrDisplay.requestAnimationFrame(animate);
         // Update VR headset position and apply to camera.
@@ -64,9 +67,10 @@ function animate(timestamp) {
     }
 }
 
+var earthObject;
 function initSceneObjects() {
     var radius = 6.3781;
-    var objectGroup         = new THREE.Group();
+        earthObject         = new THREE.Group();
     var bodySphereGeometry  = new THREE.SphereGeometry(radius, 64, 64);
     var bodySphereMaterial  = new THREE.MeshPhongMaterial({
         color:      new THREE.Color(0xffffff),
@@ -77,7 +81,8 @@ function initSceneObjects() {
     bodySphereMaterial.map          = textureLoader.load('res/earth/diffuse.jpg');
     bodySphereMaterial.specularMap  = textureLoader.load('res/earth/spec.jpg');
     bodySphereMaterial.bumpMap      = textureLoader.load('res/earth/bump.jpg');
-    objectGroup.add(new THREE.Mesh(bodySphereGeometry, bodySphereMaterial));
+    earthObject.add(new THREE.Mesh(bodySphereGeometry, bodySphereMaterial));
+    var nightSphereGeometry  = new THREE.SphereGeometry(radius + 0.02, 64, 64);
     var nightSphereMaterial = new THREE.ShaderMaterial({
         uniforms: {
             sunPosition:  {value: sunLight.position},
@@ -89,8 +94,14 @@ function initSceneObjects() {
         blending: THREE.CustomBlending,
         blendEquation: THREE.AddEquation
     });
-    objectGroup.add(new THREE.Mesh(bodySphereGeometry, nightSphereMaterial));
-    var atmosphereGeometry = new THREE.SphereGeometry(radius + 0.02, 64, 64);
+    earthObject.add(new THREE.Mesh(nightSphereGeometry, nightSphereMaterial));
+    var cloudGeometry = new THREE.SphereGeometry(radius + 0.04, 64, 64);
+    var cloudMaterial = new THREE.MeshLambertMaterial({
+        transparent:    true
+    });
+    cloudMaterial.map = textureLoader.load('res/earth/clouds.png');
+    earthObject.add(new THREE.Mesh(cloudGeometry, cloudMaterial));
+    var atmosphereGeometry = new THREE.SphereGeometry(radius + 0.08, 64, 64);
     var atmosphereMaterial = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge([
             THREE.UniformsLib.lights,
@@ -108,13 +119,7 @@ function initSceneObjects() {
         blendEquation:  THREE.AddEquation,
         lights:         true
     });
-    objectGroup.add(new THREE.Mesh(atmosphereGeometry, atmosphereMaterial));
-    var cloudGeometry = new THREE.SphereGeometry(radius + 0.04, 64, 64);
-    var cloudMaterial = new THREE.MeshLambertMaterial({
-        transparent:    true
-    });
-    cloudMaterial.map = textureLoader.load('res/earth/clouds.png');
-    objectGroup.add(new THREE.Mesh(cloudGeometry, cloudMaterial));
-    objectGroup.position.set(0, 0, 0);
-    scene.add(objectGroup);
+    earthObject.add(new THREE.Mesh(atmosphereGeometry, atmosphereMaterial));
+    earthObject.position.set(0, 0, 0);
+    scene.add(earthObject);
 }
