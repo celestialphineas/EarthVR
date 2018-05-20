@@ -101,7 +101,7 @@ void main(void) {
     vec3 normalVec = (modelMatrix * vec4(normal, 0.)).xyz;
     vec3 halfNormalVec = normalize(normalVec + cameraDir);
 
-    intensity1 = 0.5*dot(lightDir, normalVec + 0.5 * lightDir) * dot(cameraDir + 0.5*lightDir, lightDir) * (1. - pow(dot(cameraDir, normalVec), 1.5));
+    intensity1 = 0.5*dot(lightDir, normalVec + 0.5 * lightDir) * dot(cameraDir + 0.5*lightDir, lightDir) * (1. - pow(dot(cameraDir, normalVec), 1.5)) + 0.18*dot(lightDir, normalVec);
     intensity2 = 1.5*dot(lightDir, normalVec + lightDir) * (1. - dot(cameraDir + 1.5*lightDir, lightDir)/2.5) * (1. - dot(cameraDir, normalVec));
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
