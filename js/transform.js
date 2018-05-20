@@ -11,14 +11,14 @@ var cameraTransform = new (function (){
     };
     this.goNearer = function() {
         var min = minDistance;
-        if(VRDisplay) min = controls.minDistance;
+        if(!VRDisplay) min = controls.minDistance;
         if(this.cameraDistance > min) {
             this.cameraDistance -= 0.5;
         }
     };
     this.goFarther = function() {
         var max = maxDistance;
-        if(VRDisplay) max = controls.maxDistance;
+        if(!VRDisplay) max = controls.maxDistance;
         if(this.cameraDistance < max) {
             this.cameraDistance += 0.5;
         }
