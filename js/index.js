@@ -32,6 +32,9 @@ var camera;
 var poseCamera = new THREE.Object3D();
 // Three.js control object, initialized in ready
 var controls;
+var minDistance = 15;
+var maxDistance = 100;
+
 // Rendering enter/exit UI
 var vrButton;
 
@@ -84,8 +87,8 @@ function initWebVR() {
         // displays, thus provide the controls for a monoscopic view
         else {
             controls = new THREE.OrbitControls(camera);
-            controls.minDistance = 15;
-            controls.maxDistance = 100;
+            controls.minDistance = minDistance;
+            controls.maxDistance = maxDistance;
             controls.target.set(0, 0, 0);
             controls.enableDamping = true;
             controls.dampingFactor = 0.25;
