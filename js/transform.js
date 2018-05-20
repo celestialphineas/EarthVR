@@ -10,12 +10,12 @@ var cameraTransform = new (function (){
         camera.lookAt(new THREE.Vector3(0, 0, 0));
     };
     this.goNearer = function() {
-        if(this.cameraDistance > controls.minDistance) {
+        if(this.cameraDistance > minDistance) {
             this.cameraDistance -= 0.5;
         }
     };
     this.goFarther = function() {
-        if(this.cameraDistance < controls.maxDistance) {
+        if(this.cameraDistance < maxDistance) {
             this.cameraDistance += 0.5;
         }
     };
