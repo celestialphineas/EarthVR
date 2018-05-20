@@ -14,10 +14,10 @@ function updateLoop() {
     }
     if(gp.buttons[5].pressed) {
         if(gp.axes[1] > 0) {
-            cameraTransform.goFarther();
+            cameraTransform.goNearer();
         }
         if(gp.axes[1] < 0) {
-            cameraTransform.goNearer();
+            cameraTransform.goFarther();
         }
     } else {
         if(gp.axes[1] > 0) {
