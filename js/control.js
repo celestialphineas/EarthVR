@@ -27,6 +27,12 @@ function updateLoop() {
             cameraTransform.increasePhi();
         }
     }
+    if(gp.buttons[0]) {
+        cameraTransform.goNearer();
+    }
+    if(gp.buttons[1]) {
+        cameraTransform.goFarther();
+    }
     if(gp.buttons[3].pressed) {
         if(!fasterActioned) fasterTime();
         fasterActioned = true;
