@@ -19,6 +19,7 @@ function updateLoop() {
         cameraTransform.increasePhi();
     }
     if(gp.buttons[0].pressed) {
+        alert('hello');
         cameraTransform.goNearer();
     }
     if(gp.buttons[1].pressed) {
