@@ -12,18 +12,19 @@ function updateLoop() {
     if(gp.axes[0] < 0) {
         cameraTransform.decreaseTheta();
     }
-    if(gp.axes[1] > 0) {
-        cameraTransform.decreasePhi();
-    }
-    if(gp.axes[1] < 0) {
-        cameraTransform.increasePhi();
-    }
     if(gp.buttons[5].pressed) {
         if(gp.axes[1] > 0) {
             cameraTransform.goNearer();
         }
         if(gp.axes[1] < 0) {
             cameraTransform.goFarther();
+        }
+    } else {
+        if(gp.axes[1] > 0) {
+            cameraTransform.decreasePhi();
+        }
+        if(gp.axes[1] < 0) {
+            cameraTransform.increasePhi();
         }
     }
     if(gp.buttons[3].pressed) {
