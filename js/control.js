@@ -18,12 +18,13 @@ function updateLoop() {
     if(gp.axes[1] < 0) {
         cameraTransform.increasePhi();
     }
-    if(gp.buttons[0].pressed) {
-        alert('hello');
-        cameraTransform.goNearer();
-    }
-    if(gp.buttons[1].pressed) {
-        cameraTransform.goFarther();
+    if(gp.buttons[5].pressed) {
+        if(gp.axes[1] > 0) {
+            cameraTransform.goNearer();
+        }
+        if(gp.axes[1] < 0) {
+            cameraTransform.goFarther();
+        }
     }
     if(gp.buttons[3].pressed) {
         if(!fasterActioned) fasterTime();
