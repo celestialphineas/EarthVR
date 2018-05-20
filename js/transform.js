@@ -10,12 +10,16 @@ var cameraTransform = new (function (){
         camera.lookAt(new THREE.Vector3(0, 0, 0));
     };
     this.goNearer = function() {
-        if(this.cameraDistance > minDistance) {
+        var min = minDistance;
+        if(VRDisplay) min = controls.minDistance;
+        if(this.cameraDistance > min) {
             this.cameraDistance -= 0.5;
         }
     };
     this.goFarther = function() {
-        if(this.cameraDistance < maxDistance) {
+        var max = maxDistance;
+        if(VRDisplay) max = controls.maxDistance;
+        if(this.cameraDistance < max) {
             this.cameraDistance += 0.5;
         }
     };
