@@ -76,8 +76,8 @@ function initSceneObjects() {
     var bodySphereGeometry  = new THREE.SphereGeometry(radius, 64, 64);
     var bodySphereMaterial  = new THREE.MeshPhongMaterial({
         color:      new THREE.Color(0xffffff),
-        specular:   new THREE.Color(0x243232),
-        shininess:  25,
+        specular:   new THREE.Color(0x201819),
+        shininess:  40,
         bumpScale:  0.05,
     });
     bodySphereMaterial.map          = textureLoader.load('res/earth/diffuse.jpg');
