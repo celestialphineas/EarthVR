@@ -72,3 +72,7 @@ function updateSunLocation() {
         200 * Math.sin((0.22 - a) * 2 * Math.PI)
     );
 }
+
+function updateMoonLocation() {
+    var a = nowInYear();
+}

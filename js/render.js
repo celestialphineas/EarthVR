@@ -15,8 +15,9 @@ function initSkybox() {
         }) (i);
     }
     var skyboxGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
-    var skybox = new THREE.Mesh(skyboxGeometry, materialArray);
-    skybox.rotateZ(3*Math.PI/2-0.5);
+    var skybox = new THREE.Mesh(skyboxGeometry, materialArray);;
+    skybox.rotateY(0.2);
+    skybox.rotateZ(0.9);
     scene.add(skybox);
 }
 
@@ -70,14 +71,15 @@ function animate(timestamp) {
 }
 
 var earthObject;
+var moonObject;
 function initSceneObjects() {
     var radius = 6.3781;
         earthObject         = new THREE.Group();
     var bodySphereGeometry  = new THREE.SphereGeometry(radius, 64, 64);
     var bodySphereMaterial  = new THREE.MeshPhongMaterial({
         color:      new THREE.Color(0xffffff),
-        specular:   new THREE.Color(0x201819),
-        shininess:  40,
+        specular:   new THREE.Color(0x252320),//#FDF9E0
+        shininess:  35,
         bumpScale:  0.05,
     });
     bodySphereMaterial.map          = textureLoader.load('res/earth/diffuse.jpg');

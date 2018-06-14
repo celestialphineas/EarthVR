@@ -24,6 +24,16 @@ function nowInDay() {
     return dif;
 }
 
+var newMoonEpoch = new Date('2018-01-17');
+newMoonEpoch.setUTCHours(2);
+newMoonEpoch.setUTCMinutes(17);
+function nowInLunarMonth() {
+    var c = currentTime.getTime();
+    var o = newMoonEpoch.getTime();
+    var t = 29.530588853 * 24 * 3600 * 1000;
+    return ((c - o) - (Math.floor((c - o)/t) * t))/t;
+}
+
 function fasterTime() {
     if(timeScale < 1000000) {
         timeScale *= 10;
