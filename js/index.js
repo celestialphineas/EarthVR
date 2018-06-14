@@ -32,7 +32,7 @@ var camera;
 var poseCamera = new THREE.Object3D();
 // Three.js control object, initialized in ready
 var controls;
-var minDistance = 20;
+var minDistance = 18;
 var maxDistance = 200;
 
 // Rendering enter/exit UI
@@ -48,7 +48,7 @@ $(document).ready(function () {
     document.body.appendChild(renderer.domElement);
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
-    camera = new THREE.PerspectiveCamera(30, aspectRatio, 0.1, 20000);
+    camera = new THREE.PerspectiveCamera(45, aspectRatio, 0.1, 20000);
     cameraTransform.init(camera);
     // Apply VR stereo rendering to renderer
     effect.setSize(window.innerWidth, window.innerHeight);

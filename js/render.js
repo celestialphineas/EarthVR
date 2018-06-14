@@ -30,7 +30,7 @@ function initLight() {
     var textureFlare1 = textureLoader.load('res/effects/halo.png');
 
     var lensflare = new THREE.Lensflare();
-    lensflare.addElement(new THREE.LensflareElement(textureFlare0, 500, 0, sunLight.color));
+    lensflare.addElement(new THREE.LensflareElement(textureFlare0, 400, 0, sunLight.color));
     lensflare.addElement(new THREE.LensflareElement(textureFlare1, 100, 0.6));
     lensflare.addElement(new THREE.LensflareElement(textureFlare1, 30, 0.7));
     lensflare.addElement(new THREE.LensflareElement(textureFlare1, 240, 0.9));
@@ -80,8 +80,8 @@ function initSceneObjects() {
     var bodySphereGeometry  = new THREE.SphereGeometry(earthRadius, 64, 64);
     var bodySphereMaterial  = new THREE.MeshPhongMaterial({
         color:      new THREE.Color(0xffffff),
-        specular:   new THREE.Color(0x252320),//#FDF9E0
-        shininess:  35,
+        specular:   new THREE.Color(0x353330),//#FDF9E0
+        shininess:  25,
         bumpScale:  0.05,
     });
     bodySphereMaterial.map          = textureLoader.load('res/earth/diffuse.jpg');
@@ -129,7 +129,7 @@ function initSceneObjects() {
     earthObject.position.set(0, 0, 0);
     scene.add(earthObject);
 
-    var moonRadius   = 1.7371;
+    var moonRadius   = 1.7371 * 3.5;
     var moonGeometry = new THREE.SphereGeometry(moonRadius, 32, 32);
     var moonMaterial = new THREE.MeshPhongMaterial({
         color:      new THREE.Color(0xffffff),

@@ -67,9 +67,9 @@ function updateEarthRotation() {
 function updateSunLocation() {
     var a = nowInYear();
     sunLight.position.set(
-        600 * Math.cos((a-0.22) * 2 * Math.PI),
+        800 * Math.cos((a-0.22) * 2 * Math.PI),
         0,
-        600 * Math.sin((0.22 - a) * 2 * Math.PI)
+        800 * Math.sin((0.22 - a) * 2 * Math.PI)
     );
 }
 
