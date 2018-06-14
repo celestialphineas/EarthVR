@@ -47,6 +47,8 @@ function animate(timestamp) {
     updateTime(delta);
     updateEarthRotation();
     updateSunLocation();
+    updateMoonRotation();
+    updateMoonLocation();
     if(vrDisplay)
         cameraTransform.update();
     if (vrDisplay) {
@@ -73,9 +75,9 @@ function animate(timestamp) {
 var earthObject;
 var moonObject;
 function initSceneObjects() {
-    var radius = 6.3781;
+    var earthRadius = 6.3781;
         earthObject         = new THREE.Group();
-    var bodySphereGeometry  = new THREE.SphereGeometry(radius, 64, 64);
+    var bodySphereGeometry  = new THREE.SphereGeometry(earthRadius, 64, 64);
     var bodySphereMaterial  = new THREE.MeshPhongMaterial({
         color:      new THREE.Color(0xffffff),
         specular:   new THREE.Color(0x252320),//#FDF9E0
@@ -86,7 +88,7 @@ function initSceneObjects() {
     bodySphereMaterial.specularMap  = textureLoader.load('res/earth/spec.jpg');
     bodySphereMaterial.bumpMap      = textureLoader.load('res/earth/bump.jpg');
     earthObject.add(new THREE.Mesh(bodySphereGeometry, bodySphereMaterial));
-    var nightSphereGeometry  = new THREE.SphereGeometry(radius + 0.02, 64, 64);
+    var nightSphereGeometry  = new THREE.SphereGeometry(earthRadius + 0.02, 64, 64);
     var nightSphereMaterial = new THREE.ShaderMaterial({
         uniforms: {
             sunPosition:  {value: sunLight.position},
@@ -99,18 +101,18 @@ function initSceneObjects() {
         blendEquation: THREE.AddEquation
     });
     earthObject.add(new THREE.Mesh(nightSphereGeometry, nightSphereMaterial));
-    var cloudGeometry = new THREE.SphereGeometry(radius + 0.04, 64, 64);
+    var cloudGeometry = new THREE.SphereGeometry(earthRadius + 0.04, 64, 64);
     var cloudMaterial = new THREE.MeshLambertMaterial({
         transparent:    true
     });
     cloudMaterial.map = textureLoader.load('res/earth/clouds.png');
     earthObject.add(new THREE.Mesh(cloudGeometry, cloudMaterial));
-    var atmosphereGeometry = new THREE.SphereGeometry(radius + 0.08, 64, 64);
+    var atmosphereGeometry = new THREE.SphereGeometry(earthRadius + 0.08, 64, 64);
     var atmosphereMaterial = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge([
             THREE.UniformsLib.lights,
             {
-                atmosphereColor:    {value: new THREE.Vector3(0.5, 0.7, 0.8)},
+                atmosphereColor:    {value: new THREE.Vector3(0.5, 0.7, 0.9)},
                 sunsetColor:        {value: new THREE.Vector3(0.8, 0.7, 0.6)},
                 atmosphereStrength: {value: 1.5},
                 sunsetStrength:     {value: 1.0}
@@ -126,4 +128,16 @@ function initSceneObjects() {
     earthObject.add(new THREE.Mesh(atmosphereGeometry, atmosphereMaterial));
     earthObject.position.set(0, 0, 0);
     scene.add(earthObject);
+
+    var moonRadius   = 1.7371;
+    var moonGeometry = new THREE.SphereGeometry(moonRadius, 32, 32);
+    var moonMaterial = new THREE.MeshPhongMaterial({
+        color:      new THREE.Color(0xffffff),
+        specular:   new THREE.Color(0x000000),
+        bumpScale:  0.04,
+    });
+    moonMaterial.map          = textureLoader.load('res/moon/diffuse.jpg');
+    moonMaterial.bumpMap      = textureLoader.load('res/moon/bump.jpg');
+    moonObject = new THREE.Mesh(moonGeometry, moonMaterial);
+    scene.add(moonObject);
 }

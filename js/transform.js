@@ -1,5 +1,5 @@
 var cameraTransform = new (function (){
-    this.cameraDistance = 18;
+    this.cameraDistance = minDistance;
     // zOx
     this.cameraTheta    = Math.PI/2;
     this.zeroVector     = new THREE.Vector3(0, 0, 0);
@@ -67,12 +67,23 @@ function updateEarthRotation() {
 function updateSunLocation() {
     var a = nowInYear();
     sunLight.position.set(
-        200 * Math.cos((a-0.22) * 2 * Math.PI),
+        600 * Math.cos((a-0.22) * 2 * Math.PI),
         0,
-        200 * Math.sin((0.22 - a) * 2 * Math.PI)
+        600 * Math.sin((0.22 - a) * 2 * Math.PI)
     );
 }
 
+function updateMoonRotation() {
+    var c = nowInYear() + nowInLunarMonth();
+    moonObject.quaternion.set(0, 0, 0, 1);
+    moonObject.rotateY((c - 0.72) * 2 * Math.PI);
+}
+
 function updateMoonLocation() {
-    var a = nowInYear();
+    var c = nowInYear() + nowInLunarMonth();
+    moonObject.position.set(
+        385 * Math.cos((c - 0.22) * 2 * Math.PI),
+        0,
+        385 * Math.sin((0.22 - c) * 2 * Math.PI)
+    );
 }
