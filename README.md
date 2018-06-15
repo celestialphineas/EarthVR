@@ -6,6 +6,8 @@ https://celestialphineas.github.io/EarthVR
 
 ![](screenshots/earth_with_hud.jpg)
 
+This project is largely based on our previous project: [The Pale Dots](https://github.com/solarcg/SolarSys)
+
 ## VR Experience with Minimal Cost
 
 ![](screenshots/photo.jpg)
