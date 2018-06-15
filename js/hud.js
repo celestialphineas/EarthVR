@@ -1,5 +1,5 @@
 var EarthHUD = function() {
-    var width = 8192, height = 2048;
+    var width = 2048, height = 512;
     this.maxTransparency = 0.9;
     this.minTransparency = 0;
     this.transparency = this.maxTransparency;
@@ -23,13 +23,13 @@ var EarthHUD = function() {
         }
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = 'rgba(255, 255, 255,' + this.transparency + ')';
-        this.context.font = '800px sans-serif';
+        this.context.font = '200px sans-serif';
         this.context.textAlign = 'left';
         this.context.textBaseline = 'hanging';
         this.context.fillText('Earth', 0, 0);
-        this.context.font = '330px sans-serif';
-        this.context.fillText(currentTime.toLocaleString('en-US'), 0, 900);
-        this.context.fillText('Time scale: ' + timeScale + 'x', 0, 1300);
+        this.context.font = '80px sans-serif';
+        this.context.fillText(currentTime.toLocaleString('en-US'), 0, 900/4);
+        this.context.fillText('Time scale: ' + timeScale + 'x', 0, 1300/4);
         this.texture.needsUpdate = true;
         // Rotation
         var angle = Math.atan2(camera.position.x, camera.position.z);
@@ -41,7 +41,7 @@ var EarthHUD = function() {
 };
 
 var MoonHUD = function() {
-    var width = 8192, height = 2048;
+    var width = 2048, height = 512;
     var maxTransparency = this.maxTransparency  = 0.9;
     var minTransparency = this.minTransparency  = 0;
     var transparency    = this.transparency     = this.maxTransparency;
@@ -65,14 +65,14 @@ var MoonHUD = function() {
         }
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = 'rgba(255, 255, 255,' + transparency + ')';
-        context.font = '800px sans-serif';
+        context.font = '200px sans-serif';
         context.textAlign = 'left';
         context.textBaseline = 'hanging';
-        context.fillText('Moon', width/2 + 500, 0);
-        context.font = '320px sans-serif';
+        context.fillText('Moon', width/2 + 125, 0);
+        context.font = '80px sans-serif';
         var moonAge = (nowInLunarMonth() * 29.530588853).toFixed(1);
-        context.fillText('Moon age: ' + moonAge + ' days', width/2 + 500, 900);
-        context.fillText(this.getPhase(), width/2 + 500, 1300);
+        context.fillText('Moon age: ' + moonAge + ' days', width/2 + 125, 900/4);
+        context.fillText(this.getPhase(), width/2 + 125, 1300/4);
         texture.needsUpdate = true;
         // Location
         var c = nowInYear() + nowInLunarMonth();
