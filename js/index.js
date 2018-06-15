@@ -32,7 +32,7 @@ var camera;
 var poseCamera = new THREE.Object3D();
 // Three.js control object, initialized in ready
 var controls;
-var minDistance = 20;
+var minDistance = 15;
 var maxDistance = 200;
 
 // Rendering enter/exit UI

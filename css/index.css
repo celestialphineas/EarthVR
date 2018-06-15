@@ -20,14 +20,35 @@ body {
 
 .modal {
     color: #333;
-    width: 30%;
+    width: 50%;
     min-width: 300px;
+    max-width: 400px;
+    max-height: 80%;
 }
 
-.modal .label {
+.modal label {
     color: #333;
 }
 
 .modal .modal-content {
     padding: 20px;
+    padding-bottom: 0;
+}
+
+.datepicker-modal, .timepicker-modal {
+    width: 50%;
+    max-width: 600px;
+    min-width: 320px;
+    padding: 0;
+}
+
+.datepicker-modal .modal-content, .timepicker-modal .modal-content{
+    padding: 0;
+}
+
+.keyboard {
+    height: 20px;
+    line-height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
 }

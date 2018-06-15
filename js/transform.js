@@ -1,5 +1,5 @@
 var cameraTransform = new (function (){
-    this.cameraDistance = minDistance;
+    this.cameraDistance = minDistance * 2.0;
     // zOx
     this.cameraTheta    = Math.PI/2;
     this.zeroVector     = new THREE.Vector3(0, 0, 0);
