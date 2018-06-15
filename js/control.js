@@ -49,8 +49,8 @@ function updateLoop() {
     }
     if(gp.buttons[4].pressed) {
         if(!toggleHUDActioned) {
-            if(earthHUD.visibility) earthHUD.hide(); else earthHUD.show();
-            if(moonHUD.visibility) moonHUD.hide(); else moonHUD.show();
+            if(earthHUD.visibility) { earthHUD.hide(); } else { earthHUD.show(); }
+            if(moonHUD.visibility) { moonHUD.hide(); } else { moonHUD.show(); }
             toggleHUDActioned = true;
         } else {
             toggleHUDActioned = false;

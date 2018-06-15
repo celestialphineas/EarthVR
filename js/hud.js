@@ -42,10 +42,10 @@ var EarthHUD = function() {
 
 var MoonHUD = function() {
     var width = 1024, height = 256;
-    var maxTransparency = this.maxTransparency  = 0.9;
-    var minTransparency = this.minTransparency  = 0;
-    var transparency    = this.transparency     = this.maxTransparency;
-    var visibility      = this.visibility       = true;
+    this.maxTransparency  = 0.9;
+    this.minTransparency  = 0;
+    this.transparency     = this.maxTransparency;
+    this.visibility       = true;
     var canvas      = this.canvas   = document.createElement('canvas');
     var context     = this.context  = this.canvas.getContext('2d');
     var texture     = this.texture  = new THREE.Texture(canvas);
@@ -53,18 +53,18 @@ var MoonHUD = function() {
     material.transparent = true;
     canvas.width    = width;
     canvas.height   = height;
-    var geometry    = this.geometry = new THREE.PlaneGeometry(160, 40);
+    var geometry    = this.geometry = new THREE.PlaneGeometry(200, 50);
     var plane       = this.plane    = new THREE.Mesh(geometry, material);
     plane.position.set(0, 8, 0);
     scene.add(plane);
     this.update = function () {
-        if(visibility && transparency < maxTransparency) {
-            transparency += 0.02;
-        } else if(!visibility && transparency > minTransparency) {
-            transparency -= 0.02;
+        if(this.visibility && this.transparency < this.maxTransparency) {
+            this.transparency += 0.02;
+        } else if(!this.visibility && this.transparency > this.minTransparency) {
+            this.transparency -= 0.02;
         }
         context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = 'rgba(255, 255, 255,' + transparency + ')';
+        context.fillStyle = 'rgba(255, 255, 255,' + this.transparency + ')';
         context.font = '100px sans-serif';
         context.textAlign = 'left';
         context.textBaseline = 'hanging';

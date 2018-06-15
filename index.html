@@ -73,96 +73,106 @@
             </a>
         </div>
     </div>
-    <div id="settings" class="modal">
-        <div class="modal-content">
-            <h4 style="margin-bottom:20px">Settings</h4>
-            <h6>HUD</h6>
-            <div class="row switch">
-                <label>
-                    <input id="toggleHUD" type="checkbox" checked>
-                    <span class="lever"></span>
-                    Show HUD
-                </label>
-                <script>
-                    $('#toggleHUD').change(function() {
-                        if($('#toggleHUD').prop('checked')) {
-                            earthHUD.show(); moonHUD.show();
-                        } else {
-                            earthHUD.hide(); moonHUD.hide();
-                        }
-                    });
-                </script>
+    <div id="settings" class="modal" style="overflow:hidden;height:70%;min-height:250px;">
+        <div style="position:relative;overflow:hidden;display:flex;flex-direction:column;height:100%;">
+            <div class="modal-content" style="flex:0 0 auto;">
+                <h4>Settings</h4>
             </div>
-            <h6>Time</h6>
-            <div class="row" style="margin-bottom:0;">
-                <div class="input-field col s6"><input id="date" type="text" class="datepicker"><label for="date">Date</label></div>
-                <div class="input-field col s6"><input id="time" type="text" class="timepicker"><label for="time">Time</label></div>
-            </div>
-            <h6>Time scale</h6>
-            <div id="time-scale-selection">
-                <div class="row" style="margin-bottom:4px;">
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="0.1" onchange="updateTimeScale();" />
-                            <span>0.1x</span>
-                        </label>
+            <div class="modal-content" style="padding-top:0;overflow-y:auto;flex:1 1 auto;">
+                <h6>HUD</h6>
+                <div class="row switch">
+                    <label>
+                        <input id="toggleHUD" type="checkbox" checked>
+                        <span class="lever"></span>
+                        Show HUD
+                    </label>
+                    <script>
+                        $('#toggleHUD').change(function () {
+                            if ($('#toggleHUD').prop('checked')) {
+                                earthHUD.show(); moonHUD.show();
+                            } else {
+                                earthHUD.hide(); moonHUD.hide();
+                            }
+                        });
+                    </script>
+                </div>
+                <h6>Time</h6>
+                <div class="row" style="margin-bottom:0;">
+                    <div class="input-field col s6">
+                        <input id="date" type="text" class="datepicker">
+                        <label for="date">Date</label>
                     </div>
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="1" onchange="updateTimeScale();" checked/>
-                            <span>1x</span>
-                        </label>
-                    </div>
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="10" onchange="updateTimeScale();" />
-                            <span>10x</span>
-                        </label>
+                    <div class="input-field col s6">
+                        <input id="time" type="text" class="timepicker">
+                        <label for="time">Time</label>
                     </div>
                 </div>
-                <div class="row" style="margin-bottom:4px;">
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="100" onchange="updateTimeScale();" />
-                            <span>100x</span>
-                        </label>
+                <h6>Time scale</h6>
+                <div id="time-scale-selection">
+                    <div class="row" style="margin-bottom:4px;">
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="0.1" onchange="updateTimeScale();" />
+                                <span>0.1x</span>
+                            </label>
+                        </div>
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="1" onchange="updateTimeScale();" checked/>
+                                <span>1x</span>
+                            </label>
+                        </div>
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="10" onchange="updateTimeScale();" />
+                                <span>10x</span>
+                            </label>
+                        </div>
                     </div>
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="1000" onchange="updateTimeScale();" />
-                            <span>1000x</span>
-                        </label>
+                    <div class="row" style="margin-bottom:4px;">
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="100" onchange="updateTimeScale();" />
+                                <span>100x</span>
+                            </label>
+                        </div>
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="1000" onchange="updateTimeScale();" />
+                                <span>1000x</span>
+                            </label>
+                        </div>
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="10000" onchange="updateTimeScale();" />
+                                <span>10000x</span>
+                            </label>
+                        </div>
                     </div>
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="10000" onchange="updateTimeScale();" />
-                            <span>10000x</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom:4px;">
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="100000" onchange="updateTimeScale();" />
-                            <span>100000x</span>
-                        </label>
-                    </div>
-                    <div class="col s4">
-                        <label>
-                            <input class="with-gap" name="time-scale" type="radio" value="1000000" onchange="updateTimeScale();" />
-                            <span>1000000x</span>
-                        </label>
+                    <div class="row" style="margin-bottom:4px;">
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="100000" onchange="updateTimeScale();" />
+                                <span>100000x</span>
+                            </label>
+                        </div>
+                        <div class="col s4">
+                            <label>
+                                <input class="with-gap" name="time-scale" type="radio" value="1000000" onchange="updateTimeScale();" />
+                                <span>1000000x</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-            function updateTimeScale() {
-                timeScale = parseFloat($('input[name="time-scale"]:checked').val());
-            }
-        </script>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
+            <script>
+                function updateTimeScale() {
+                    timeScale = parseFloat($('input[name="time-scale"]:checked').val());
+                }
+            </script>
+            <div class="modal-footer" style="flex:0 0 auto;">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
+            </div>
         </div>
     </div>
     <div id="about" class="modal" style="overflow:hidden;height:80%;">
