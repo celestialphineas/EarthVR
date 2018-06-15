@@ -32,15 +32,16 @@ var camera;
 var poseCamera = new THREE.Object3D();
 // Three.js control object, initialized in ready
 var controls;
-var minDistance = 18;
+var minDistance = 20;
 var maxDistance = 200;
 
 // Rendering enter/exit UI
 var vrButton;
-
 var vrDisplay;
 
 var sunLight;
+var earthHUD;
+var moonHUD;
 
 $(document).ready(function () {
     // Three.js renderer
@@ -60,6 +61,9 @@ $(document).ready(function () {
     initLight();
     // Add objects
     initSceneObjects();
+    // Add HUD
+    earthHUD = new EarthHUD();
+    moonHUD = new MoonHUD();
 });
 
 // Window resize call back

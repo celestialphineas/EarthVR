@@ -10,16 +10,24 @@ body {
 
 #ui {
     position: absolute;
-    bottom: 10px;
+    bottom: 0px;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    font-family: 'Karla', sans-serif;
+    font-family: 'Roboto', sans-serif;
     z-index: 1;
 }
 
-a#magic-window {
-    display: block;
-    color: white;
-    margin-top: 1em;
+.modal {
+    color: #333;
+    width: 30%;
+    min-width: 300px;
+}
+
+.modal .label {
+    color: #333;
+}
+
+.modal .modal-content {
+    padding: 20px;
 }

@@ -9,9 +9,9 @@
 <!-- ES6 promise -->
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4.2.4/dist/es6-promise.min.js"></script>
 <!-- jQuery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <!-- Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
 <!-- Three.js VR controls -->
 <!-- Requesting positional information from connected VR device -->
 <!-- and apply the transformation to a camera. -->
@@ -29,9 +29,9 @@
 <!-- Src: https://github.com/mrdoob/three.js/blob/master/examples/js/objects/Lensflare.js -->
 <script src="js/lib/Lensflare.js"></script>
 <!-- WebVR Polyfill -->
-<script src="https://cdn.jsdelivr.net/npm/webvr-polyfill@0.10.5/build/webvr-polyfill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/webvr-polyfill@0.10.5/build/webvr-polyfill.min.js"></script>
 <!-- Google WebVR UI -->
-<script src="https://cdn.jsdelivr.net/npm/webvr-ui@0.9.4/build/webvr-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/webvr-ui@0.9.4/build/webvr-ui.min.js"></script>
 <!-- Shader program -->
 <script src="js/shader.js"></script>
 <!-- Initialization program -->
@@ -40,17 +40,54 @@
 <script src="js/render.js"></script>
 <!-- Geomatric transformations -->
 <script src="js/transform.js"></script>
+<!-- HUD -->
+<script src="js/hud.js"></script>
 <!-- Timing -->
 <script src="js/time.js"></script>
 <!-- This files contains stuff for controling -->
 <script src="js/control.js"></script>
+<!-- Compiled and minified Materialize CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <link rel="stylesheet" href="css/index.css"/>
 <title>EarthVR</title>
 </head>
 <body>
-    <div id="ui">
+    <div id="ui" style="width:100%;">
         <div id="vr-button"></div>
-        <a id="magic-window" href="#">Try it without a headset</a>
+        <div style="margin-top: 10px">
+            <a id="magic-window" href="#" class="waves-effect waves-light btn" style="margin:4px;">
+                <i class="material-icons left">visibility</i>
+                Try without headset
+            </a>
+            <a href="#settings" class="waves-effect waves-dark white teal-text text-darken-2 btn modal-trigger" style="margin:4px;">
+                <i class="material-icons left">settings</i>
+                Settings
+            </a>
+            <a class="waves-effect waves-dark white teal-text text-darken-2 btn" style="margin:4px;">
+                <i class="material-icons left">info</i>
+                About
+            </a>
+        </div>
     </div>
+    <div id="settings" class="modal">
+        <div class="modal-content">
+            <h4>Settings</h4>
+            <h6>HUD</h6>
+            <div class="row switch">
+                <label>
+                    <input type="checkbox" checked>
+                    <span class="lever"></span>
+                    Show HUD
+                </label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
+        </div>
+    </div>
+    <script>M.AutoInit();</script>
 </body>
 </html>

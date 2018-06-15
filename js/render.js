@@ -49,6 +49,8 @@ function animate(timestamp) {
     updateSunLocation();
     updateMoonRotation();
     updateMoonLocation();
+    earthHUD.update();
+    moonHUD.update();
     if(vrDisplay)
         cameraTransform.update();
     if (vrDisplay) {
@@ -121,7 +123,6 @@ function initSceneObjects() {
         vertexShader:   atmosphereVS,
         fragmentShader: atmosphereFS,
         transparent:    true,
-        // blending:       THREE.CustomBlending,
         blendEquation:  THREE.AddEquation,
         lights:         true
     });
