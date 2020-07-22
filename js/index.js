@@ -20,6 +20,8 @@ var polyfill        = new WebVRPolyfill((function() {
 })());
 // Three.js renderer
 var renderer        = new THREE.WebGLRenderer({antialias: true, alpha: true, preserveDrawingBuffer: true});
+// Three.js renderer
+renderer.setPixelRatio(window.devicePixelRatio);
 // Effect
 var effect          = new THREE.VREffect(renderer);
 // Three.js scene
@@ -44,8 +46,6 @@ var earthHUD;
 var moonHUD;
 
 $(document).ready(function () {
-    // Three.js renderer
-    renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(renderer.domElement);
     // Create a three.js camera
     var aspectRatio = window.innerWidth / window.innerHeight;
